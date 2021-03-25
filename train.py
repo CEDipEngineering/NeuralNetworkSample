@@ -1,8 +1,17 @@
+"""Trains and evaluate a simple MLP
+on the Reuters newswire topic classification task.
+"""
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 
+# The following import and function call are the only additions to code required
+# to automatically log metrics and parameters to MLflow.
+import mlflow.keras
+
 def main():
+    mlflow.keras.autolog()
+
     # Generate dummy dataset
     x_train = np.random.random((1000, 20))
     y_train = np.random.randint(2, size=(1000, 1))
@@ -29,6 +38,7 @@ def main():
             
     # Evaluate		  
     score = model.evaluate(x_test, y_test, batch_size=128)
+
 
 if __name__ == "__main__":
     main()
